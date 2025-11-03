@@ -1,4 +1,4 @@
-name: Organizer CI/CD Pipeline
+name: LifeTracker CI/CD Pipeline
 
 on:
   push:
@@ -7,9 +7,8 @@ on:
     branches: [main, develop]
 
 jobs:
-  lint-and-test:
+  install-deps:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,15 +21,48 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        
+  lint:
+    needs: install-deps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
+      - name: Install dependencies (Cached)
+        run: npm ci 
+        
       - name: Run ESLint
         run: npm run lint
+        
+  
+  test:
+    needs: install-deps 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install (cached) dependencies
+        run: npm ci
 
       - name: Run tests
         run: npm test
 
   deploy:
-    needs: lint-and-test
+    needs: [lint, test] 
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     
