@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Lato } from "next/font/google"
+
+export const lato = Lato({
+  weight: ['400', '700'], 
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 export const metadata: Metadata = {
   title: "LifeTracker",
@@ -13,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={lato.className}>
         {children}
       </body>
     </html>
