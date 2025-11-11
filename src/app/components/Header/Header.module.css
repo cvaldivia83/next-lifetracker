@@ -1,0 +1,75 @@
+@reference "../../globals.css";
+
+.header {
+  @apply w-full max-w-screen flex justify-between items-center px-4 py-2 md:px-8 md:py-4 fixed top-0 bg-white z-50;
+}
+
+.headerIcon {
+  @apply text-2xl text-slate-700 pt-2;
+}
+
+.mobileButton {
+  @apply p-2 text-slate-700 md:hidden relative z-60 cursor-pointer;
+}
+
+.mobileBars {
+  @apply md:hidden;
+}
+
+.headerNav {
+  @apply md:grow md:block;
+}
+
+.headerList {
+  @apply flex items-center justify-evenly transition-all duration-300 ease-in-out ;
+}
+
+.listItem__icon {
+  @apply mx-3;
+}
+
+.headerList__link {
+  @apply font-bold text-slate-700;
+}
+
+.headerList__item {
+  @apply py-4 md:py-0 cursor-pointer;
+}
+
+.jobIcon {
+  @apply text-teal-500 text-xl drop-shadow-md drop-shadow-teal-200;
+}
+
+.studyIcon {
+  @apply text-purple-500 text-xl drop-shadow-md drop-shadow-purple-200;
+}
+
+.sportIcon {
+  @apply text-pink-500 text-xl drop-shadow-md drop-shadow-pink-200;
+}
+
+.userIcon {
+  @apply text-blue-500 text-xl drop-shadow-md drop-shadow-blue-200;
+}
+
+@media (max-width: 768px) {
+  .headerNav {
+    @apply absolute top-0 left-0 w-full h-0 overflow-visible pointer-events-none;
+    z-index: 10;  
+  }
+
+  .headerList {
+    @apply fixed top-0 left-0 w-full h-screen flex flex-col justify-center items-start pl-8 bg-white text-2xl transform translate-y-full transition-transform duration-300 ease-in-out z-20;
+  }
+
+  .headerList.openMenu {
+    @apply translate-y-0;
+  }
+
+  .listItem__icon {
+    @apply mx-6
+  }
+}
+
+
+
